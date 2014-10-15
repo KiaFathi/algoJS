@@ -51,7 +51,7 @@ function countInversions(array){
   }
   if(!!arrayA[a]){ 
     newArray = newArray.concat(arrayA.slice(a));
-    count += arrayA.length;
+    count += arrayB.slice(b).length;
   } else {
     newArray = newArray.concat(arrayB.slice(b));
   }  
