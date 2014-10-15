@@ -15,6 +15,9 @@ fs.readFile(filename, 'utf8', function(err, data){
   }
   console.log('Created array from: ' + filename);
   integerArray = data.toString().split('\n');
+  for(var i = 0; i < integerArray.length; i++){
+    integerArray[i] = parseInt(integerArray[i]);
+  }
   countInversions(integerArray);
   console.log(count);
 });
@@ -39,7 +42,7 @@ function countInversions(array){
   var a = 0;
   var b = 0;
   var newArray = [];
-  while(!!arrayA[a] && !!arrayB[b]){
+  while(arrayA[a] !== undefined && arrayB[b] !== undefined){
     if(arrayA[a] > arrayB[b]){
       newArray.push(arrayB[b]);
       b++;
@@ -49,7 +52,7 @@ function countInversions(array){
       a++;
     }
   }
-  if(!!arrayA[a]){ 
+  if(arrayA[a] !== undefined){ 
     newArray = newArray.concat(arrayA.slice(a));
     count += arrayB.slice(b).length;
   } else {
