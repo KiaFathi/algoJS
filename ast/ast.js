@@ -26,6 +26,9 @@ var endTime = function(startTime, exp){
   if(exp.tag === 'seq'){
     startTime += endTime(0, exp.left);
     startTime += endTime(0, exp.right);
+  } else if(exp.tag === 'par'){
+    var max = Math.max(endTime(0, exp.left), endTime(0, exp.right));
+    startTime += max;
   } else {
     startTime += exp.dur;
   }
@@ -33,11 +36,46 @@ var endTime = function(startTime, exp){
 };
 
 
-// var compile = function (exp) {
-//   // your code here
-//   var res = [];
-//   var runningTime = 0;
-// };
+var expWPar = 
+{ tag: 'seq',
+  left: { tag: 'note', pitch: 'c4', dur: 250 },
+  right:
+   { tag: 'par',
+     left: { tag: 'note', pitch: 'e4', dur: 250 },
+     right: { tag: 'note', pitch: 'g4', dur: 250 } } };
 
 
-console.log(endTime(ast, 0));
+/*compile expected output
+
+[ { tag: 'note', pitch: 'a4', start: 0, dur: 250 },
+  { tag: 'note', pitch: 'b4', start: 250, dur: 250 },
+  { tag: 'note', pitch: 'c4', start: 500, dur: 500 },
+  { tag: 'note', pitch: 'd4', start: 1000, dur: 500 } ]
+
+*/
+
+
+// this compiler can only handle seq, not par
+var compile = function (exp) {
+  var res = [];
+  var runTime = 0;
+  var subroutine = function(expression, resArray){
+    if(expression.tag === 'note'){
+      expression.start = runTime;
+      resArray.push(expression);
+      runTime += expression.dur;
+    } else if(expression.tag === 'seq'){
+      subroutine(expression.left, resArray);
+      subroutine(expression.right, resArray);
+    } else if(expression.tag === 'par'){
+      var prevRun = runTime;
+      subroutine(expression.left, resArray);
+      runTime = prevRun;
+      subroutine(expression.right, resArray);
+    }
+  };
+  subroutine(exp, res);
+  return res;
+};
+
+console.log(compile(expWPar));

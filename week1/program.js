@@ -1,4 +1,3 @@
-'use strict';
 /* Given an unsorted list of numbers, determine the number of inversions
  * determine the number of inversions in that array
  */
