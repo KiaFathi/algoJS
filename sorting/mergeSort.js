@@ -23,4 +23,4 @@ var mergeSort = function(array){
 
 };
 
-mergeSort([8,1,3,7,6,4,5,2,9]);
+console.log(mergeSort([8,1,3,7,6,4,5,2,9]));

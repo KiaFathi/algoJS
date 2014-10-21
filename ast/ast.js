@@ -60,7 +60,7 @@ var compile = function (exp) {
   var res = [];
   var runTime = 0;
   var subroutine = function(expression, resArray){
-    if(expression.tag === 'note'){
+    if(expression.tag === 'note' || expression.tag === 'rest'){
       expression.start = runTime;
       resArray.push(expression);
       runTime += expression.dur;
@@ -78,4 +78,18 @@ var compile = function (exp) {
   return res;
 };
 
-console.log(compile(expWPar));
+var melody_mus = 
+    { tag: 'seq',
+      left: 
+       { tag: 'seq',
+         left: { tag: 'note', pitch: 'a4', dur: 250 },
+         right: { tag: 'note', pitch: 'b4', dur: 250 } },
+      right:
+       { tag: 'par',
+         left: { tag: 'note', pitch: 'c4', dur: 500 },
+         right: {
+          
+         } };
+
+console.log(melody_mus);
+console.log(compile(melody_mus));
