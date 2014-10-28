@@ -59,12 +59,13 @@ running total of comparisons every time you recurse on a subarray with length m.
 
 */
 var filename = process.argv[2];
+var pivotType = process.argv[3] || 0;
 var integerArray;
 var count = 0;
 
 
 /* expected answers for test cases
-size   first      last      median
+size   first(0)   last(1)   median(2)
 10     25         29        21
 100    615        587       518
 1000   10297      10184     8921
@@ -75,26 +76,63 @@ fs.readFile(filename, 'utf8', function(err, data){
     throw err;
   }
   console.log('Created array from: ' + filename);
+
   integerArray = data.toString().split('\n');
-  for(var i = 0; i < integerArray.length; i++){
-    integerArray[i] = parseInt(integerArray[i]);
-  }
-  console.log(integerArray.length);
+
+  integerArray = integerArray.map(function(item){
+    return parseInt(item);
+  });
+
+  pivot(integerArray, 0, integerArray.length, pivotType);
+  console.log(count);
 });
 
 
-function quickSort(array){
-  //every recursive call, increment count by length - 1 of subarray
-}
-
-function pFirst(array){
-}
-
-function pLast(array){
-
-}
-
-function pMOT(array){
+//type 0 === first
+//type 1 === last
+  //swap chosen element with first element and then pFirst
+//type 2 === median of three
   //median = Math.floor(array.length/2)
   //pick middle value of first,last and median
+  //swap chosen element with first element and then pFirst
+
+function pivot(array, l, r, type){
+  if(r - l < 2){
+    return;
+  } else {
+    count += r - l - 1;
+  }
+
+  if(type === '1'){
+    var temp = array[r-1];
+    array[r-1] = array[l];
+    array[l] = temp;
+  }
+  if(type === '2'){
+    var first = array[l];
+    var last = array[r-1];
+    var mp = l + Math.floor((r-1-l)/2);
+    var mid = array[mp];
+    if((last >= mid && last <= first)||(last >= first && last <= mid) && last !== first){
+      array[l] = last;
+      array[r-1] = first;
+    } else if((mid >= last && mid <= first) || (mid >= first && mid <= last) && first !== mid){
+      array[l] = mid;
+      array[mp] = first;
+    }     
+  }
+  var p = array[l];
+  var i = l + 1;
+  for(var j = l + 1; j < r; j++){
+    if(array[j] < p){
+      var swap = array[i];
+      array[i] = array[j];
+      array[j] = swap;
+      i++;
+    }
+  }
+  array[l] = array[i-1];
+  array[i-1] = p;
+  pivot(array, l, i-1, type);
+  pivot(array, i, r, type);
 }
