@@ -85,11 +85,11 @@ var melody_mus =
          left: { tag: 'note', pitch: 'a4', dur: 250 },
          right: { tag: 'note', pitch: 'b4', dur: 250 } },
       right:
-       { tag: 'par',
+       { tag: 'seq',
          left: { tag: 'note', pitch: 'c4', dur: 500 },
-         right: {
-          
-         } };
+         right: {tag: 'note', pitch: 'd4', dur: 500}
+       }
+    };
 
 console.log(melody_mus);
 console.log(compile(melody_mus));
