@@ -61,8 +61,12 @@ var compile = function (exp) {
   var runTime = 0;
   var subroutine = function(expression, resArray){
     if(expression.tag === 'note' || expression.tag === 'rest'){
-      expression.start = runTime;
-      resArray.push(expression);
+      var newNote = {};
+      newNote.tag = expression.tag;
+      newNote.pitch = expression.pitch || '––';
+      newNote.start = runTime;
+      newNote.dur = expression.dur;
+      resArray.push(newNote);
       runTime += expression.dur;
     } else if(expression.tag === 'seq'){
       subroutine(expression.left, resArray);
@@ -72,13 +76,17 @@ var compile = function (exp) {
       subroutine(expression.left, resArray);
       runTime = prevRun;
       subroutine(expression.right, resArray);
+    } else if(expression.tag === 'repeat'){
+      for(var i = 0; i < expression.count; i++){
+        subroutine(JSON.parse(JSON.stringify(expression.section)), resArray);
+      }
     }
   };
   subroutine(exp, res);
   return res;
 };
 
-var melody_mus = 
+var melodyMus = 
     { tag: 'seq',
       left: 
        { tag: 'seq',
@@ -86,10 +94,17 @@ var melody_mus =
          right: { tag: 'note', pitch: 'b4', dur: 250 } },
       right:
        { tag: 'seq',
-         left: { tag: 'note', pitch: 'c4', dur: 500 },
-         right: {tag: 'note', pitch: 'd4', dur: 500}
-       }
+         left: 
+          {tag: 'seq',
+           left: {tag: 'rest', dur: 100},
+           right: { tag: 'note', pitch: 'c4', dur: 500 }
+          },
+         right: 
+          { tag: 'repeat',
+            section: { tag: 'note', pitch: 'c4', dur: 250 },
+            count: 3 }
+         }
     };
 
-console.log(melody_mus);
-console.log(compile(melody_mus));
+console.log(melodyMus);
+console.log(compile(melodyMus));
