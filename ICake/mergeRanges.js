@@ -30,10 +30,32 @@ our time ranges.
 
 function rangeMerges(meetingsArray){
   var condensedArray = [];
-
+  var res = [];
+  for(var i = 0; i < meetingsArray.length; i++){
+    var tuple = meetingsArray[i];
+    for(var j = tuple[0]; j <= tuple[1]; j++){
+      condensedArray[j] = 1;
+    }
+  }
+  var start = null;
+  var streak = 0;
+  for(var i = 0; i < condensedArray.length + 1; i++){
+    if(condensedArray[i] === 1){
+      if(start === null){
+        start = i;
+      }
+      streak += 1;
+    } else {
+      res.push([start, start + streak - 1]);
+      start = null;
+      streak = 0;
+    }
+  }
   //iterate through meetings
     //check if tuple[0] is greater than other tuple[0] and < other tuple[1]
       //if true, take other tuple[0] 
-
+  console.log(res);
   return condensedArray;
 }
+
+console.log(rangeMerges([[0, 1], [3, 5], [4, 8], [10, 12], [9, 10]]));

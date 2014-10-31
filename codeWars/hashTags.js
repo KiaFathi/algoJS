@@ -1,0 +1,35 @@
+/*
+You start working for a fancy new startup hoping to revolutionize social 
+networking! GASP! They had this great idea that users should be able to specify 
+relevant keywords to their posts using an ingenious idea by prefixing those 
+keywords with the pound sign (#). Your job is to extract those keywords so that 
+they can be used later on for whatever purposes.
+
+Note:
+
+Pound signs alone do not count, for example: the string "#" would return an 
+empty array.
+If a word is preceded by more than one hashtag, only the last hashtag counts 
+(e.g. "##alot" would return ["alot"])
+Hashtags cannot be within the middle of a word (e.g. "in#line hashtag" returns 
+an empty array)
+Hashtags must precede alphabetical characters (e.g. "#120398" or "#?" are 
+invalid)
+Input: String of words, where some words may contain a hashtag.
+
+Output: Array of strings that were prefixed with the hashtag, but do not contain 
+the hashtag.
+*/
+
+function getHashtags(post) {
+  // Add logic here
+  return post.split(' ').filter(function(word){
+    return word.match(/^#+[a-z]+$/i);
+  }).map(function(word){
+    return word.replace(/#/g, '');
+  });
+}
+
+
+console.log(getHashtags("Hello #world")[0]); // "world");
+console.log(getHashtags("#sorryNotSorry")[0]);// "sorryNotSorry");
