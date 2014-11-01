@@ -8,19 +8,16 @@ Examples of invalid inputs: 1.2.3 1.2.3.4.5 123.456.78.90 123.045.067.089
 */
 
 function isValidIP(str) {
-  var arr = str.split('.');
-  var flag = true;
-  arr.forEach(function(item){
-    var integer = parseInt(item);
-    if(integer < 0 || integer > 255 || isNaN(integer)){
-      flag = false;
-    }
+  var strArr = str.split('.').filter(function(item){
+    var num = parseInt(item);
+    return typeof num === 'number' && num >= 0 && num < 256;
   });
-  if(arr.length !== 4 || !flag){
-    return false;
-  }
-  return true;
+
+  return !!str.match(/^\d+\.\d+\.\d+\.\d+$/) && strArr.length === 4;
 }
 
-console.log(isValidIP('a.2.3.4'));
-console.log(parseInt('a'));
+console.log(isValidIP('1.2.3.4'));//true
+console.log(isValidIP('123.45.67.89'));//true
+console.log(isValidIP('1.2.3'));//false
+console.log(isValidIP('123.456.78.90'));//false
+console.log(isValidIP('123.045.067.089'));//false
