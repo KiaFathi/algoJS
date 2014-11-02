@@ -68,7 +68,7 @@ function emptyNested(array){
 }
 var kia = ['a', 'b', 'c', ['a', 'b', 'c', ['a', 'b', 'c', ['a', 'b', 'c']]]];
 emptyNested(kia);
-console.log(kia)
+console.log(JSON.stringify(kia))
 
 
 console.log([ 1, 1, 1 ].sameStructureAs( [ 2, 2, 2 ] ));          
@@ -79,7 +79,7 @@ console.log([ 1, [ 1, 1 ] ].sameStructureAs( [ [ 2, 2 ], 2 ] ));
 console.log([ 1, [ 1, 1 ] ].sameStructureAs( [ [ 2 ], 2 ] ));  
 
 // should return true
-console.log([ [ [ ], [ ] ] ].sameStructureAs( [ [ [ ], [ ] ] ]) );
+console.log([ [ [','], [ ] ] ].sameStructureAs( [ [ [ ], [ ] ] ]) );
 
 //false
 console.log([ [ [ ], [ ] ] ].sameStructureAs( [ [ 1, 1 ] ] ));
