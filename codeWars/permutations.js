@@ -36,4 +36,4 @@ function permutations(string){
   return resArr;
 }
 
-console.log(permutations('aba'));
+console.log(permutations('abc'));

@@ -23,12 +23,11 @@ function sumStrings(a,b) {
     if(sum > 9){
       carry = 1;
       sum -= 10;
-      ans = parseInt(sum) + ans;
     }
     else {
       carry = 0;
-      ans = parseInt(sum) + ans;
     }
+    ans = parseInt(sum) + ans;
     i++;
   }
   if(carry){

@@ -3,27 +3,27 @@ var fs = require('fs');
 function readAdjList(fileName){
   console.log('Testing: ' + fileName);
   var resultsArray = [];
-  for(var i = 0; i < parseInt(process.argv[3]); i++){
-    fs.readFile(fileName, 'utf8', function(err, data){
-      if(err){
-        throw err;
-      }
+  fs.readFile(fileName, 'utf8', function(err, data){
+    if(err){
+      throw err;
+    }
 
-      var adjList = {};
+    var adjList = {};
 
-      data.toString().split('\n').forEach(function(str){
-        var arr = str.split(' ');
-        adjList[arr[0]] = [];
-        for(var i = 1; i < arr.length; i++){
-          adjList[arr[0]].push(arr[i]);
-        }
-      });
-      resultsArray.push(findMinCut(adjList));
-      if(resultsArray.length === parseInt(process.argv[3])){
-        console.log(Math.min.apply(null, resultsArray));
+    data.toString().split('\n').forEach(function(str){
+      var arr = str.split(' ');
+      adjList[arr[0]] = [];
+      for(var i = 1; i < arr.length; i++){
+        adjList[arr[0]].push(arr[i]);
       }
-    });    
-  }
+    });
+    for(var i = 0; i < process.argv[3]; i++){
+      resultsArray.push(findMinCut(JSON.parse(JSON.stringify(adjList))));
+    }
+    if(resultsArray.length === parseInt(process.argv[3] || 1)){
+      console.log(Math.min.apply(null, resultsArray));
+    }
+  });    
 }
 
 /**
