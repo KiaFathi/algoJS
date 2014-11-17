@@ -9,8 +9,15 @@ four million, find the sum of the even-valued terms.
 '''
 
 def fibonacci_sum(upperBound):
-  for i in range(0, upperBound):
-    print i
+  fibDigs = [0,1];
+  evenSum = 0;
+  while(fibDigs[1] < upperBound):
+    currentSum = fibDigs[0] + fibDigs[1]
+    fibDigs[0] = fibDigs[1]
+    fibDigs[1] = currentSum
+    if(currentSum % 2 == 0):
+      evenSum += currentSum
+  return evenSum
 
 
-fibonacci_sum(10)
+print fibonacci_sum(4000000)
