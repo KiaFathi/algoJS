@@ -8,13 +8,6 @@ function bind(func, context){
   };
 }
 
-var alice = {
-  name: 'alice',
-  shout: function(){
-    console.log(this.name);
-  }
-};
-
 
 Function.prototype.bind = function(context){
   var args = Array.prototype.slice.call(arguments,1);
