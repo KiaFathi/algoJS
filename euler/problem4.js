@@ -20,8 +20,6 @@ var palindromicNumber = function(n){
   return maxPal;
 };
 
-console.log(palindromicNumber(3));
-
 function numIsPal(number){
   var numStr = number.toString();
   var i = 0;

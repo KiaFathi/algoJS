@@ -8,9 +8,9 @@ numbers from 1 to 20?
 
 function smallestEvenlyDivisible(n){
   var flag;
-  var num = 1;
+  var num = n;
   while(!flag){
-    num++;
+    num += n;
     flag = true;
     for(var i = 2; i <= n; i++){
       if(num % i){
