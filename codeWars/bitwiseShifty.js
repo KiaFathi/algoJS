@@ -15,7 +15,7 @@ representation of the number in "n" bits in a string.
 */
 
 Number.prototype.twos = function(n) {
-  if(this < 0){
+  if(this > 0){
     var bits = this.toString(2);
     while(bits.length < n){
       bits = '0' + bits;
@@ -33,13 +33,13 @@ Number.prototype.twos = function(n) {
   }
 };
 
-2..twos(5); // 00010
-(-3).twos(3); // 101
+console.log(2..twos(5)); // 00010
+console.log((-3).twos(3)); // 101
 
-Number.prototype.twos = function(n){
-  var bits = (this & ((1 << n) - 1)).toString(2);
-  console.log(bits);
-  return new Array(n - bits.length + 1).join('0') + bits;
-};
+// Number.prototype.twos = function(n){
+//   var bits = (this & ((1 << n) - 1)).toString(2);
+//   console.log(bits);
+//   return new Array(n - bits.length + 1).join('0') + bits;
+// };
 
-(-5).twos(5); //11011
+// (-5).twos(5); //11011
