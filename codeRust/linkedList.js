@@ -83,7 +83,7 @@ LinkedList.prototype.delete = function(value){
   }
 };
 
-LinkedList.prototype.addAnotherLL(linkedList){
+LinkedList.prototype.add = function(linkedList){
   var node1 = this.head;
   var node2 = linkedList.head;
   var carry = 0;
