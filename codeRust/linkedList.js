@@ -120,3 +120,5 @@ var LL2 = new LinkedList();
 LL2.addToTail(7);
 LL2.addToTail(8);
 LL2.addToTail(9);
+
+LL1.add(LL2);
