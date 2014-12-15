@@ -87,14 +87,26 @@ LinkedList.prototype.add = function(linkedList){
   var node1 = this.head;
   var node2 = linkedList.head;
   var carry = 0;
-  var value = 0;
-  while(node1 !== null || node2 !== null){
-    value = node1.value + node2.value;
+  var res = new LinkedList();
+  while(node1 !== null || node2 !== null || carry === 1){
+    var value1 = node1 !== null ? node1.value : 0;
+    var value2 = node2 !== null ?node2.value : 0;
+    var sum = value1 + value2 + carry;
+    carry = 0;
 
-    node1 = node1.next;
-    node2 = node2.next;
+    if(sum > 9){
+      sum -=10;
+      carry = 1;
+    }
+    res.addToTail(sum);
+    if(node1 !== null){
+      node1 = node1.next;
+    }
+    if(node2 !== null){
+      node2 = node2.next;
+    }
   }
-
+  return res;
 };
 
 var LL = new LinkedList();
@@ -121,4 +133,4 @@ LL2.addToTail(7);
 LL2.addToTail(8);
 LL2.addToTail(9);
 
-LL1.add(LL2);
+console.log(LL1.add(LL2));
