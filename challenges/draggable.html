@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang='en'>
+  <head>
+    <meta charset='utf-8'>
+    <title>jQuery UI Draggable - Default functionality</title>
+    <link rel='stylesheet" href="http://code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css'>
+    <script src='http://code.jquery.com/jquery-1.10.2.js'></script>
+    <script src='http://code.jquery.com/ui/1.11.2/jquery-ui.js'></script>
+    <style>
+      #container {
+        height: 382px;
+        width: 382px;
+      }
+
+      #draggable {
+        width: 38.2px;
+        postion: absolute;
+        height: 38.2px;
+        background-color: blue;
+      }
+    </style>
+    <script>
+
+      /*Standard use of draggable with grid
+      $(function() {
+        $( '#draggable' ).draggable({
+          containment: 'parent',
+          grid: [19.1, 19.1]
+        });
+      });
+      */
+
+      //draggable without use of grid
+      $(function() {
+        $( '#draggable' ).draggable({
+          containment: 'parent',
+          stop: function(event, ui){
+            console.log(ui);
+            console.log(event);
+            var correctedLeft = ui.offset.left - ui.offset.left % 19.1 + 9;
+            var correctedTop = ui.offset.top - ui.offset.top % 19.1 + 9;
+            $(event.target).offset({
+              top: correctedTop,
+              left: correctedLeft
+            });
+          }
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <div id='container'>
+      <img src='http://i1.allaboutvision.com/i/amsler-grid.gif'/>
+      <div id='draggable' class='ui-widget-content'>
+        <p>Drag</p>
+      </div>
+    </div>
+  </body>
+</html>
