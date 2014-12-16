@@ -35,8 +35,6 @@
         $( '#draggable' ).draggable({
           containment: 'parent',
           stop: function(event, ui){
-            console.log(ui);
-            console.log(event);
             var correctedLeft = ui.offset.left - ui.offset.left % 19.1 + 9;
             var correctedTop = ui.offset.top - ui.offset.top % 19.1 + 9;
             $(event.target).offset({
