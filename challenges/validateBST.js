@@ -34,16 +34,37 @@ BinaryTree.prototype.validateBST = function(){
   return flag;
 };
 
+function print(item){
+  console.log(item);
+}
+
+BinaryTree.prototype.inOrderTraversal = function(callback){
+  var subroutine = function(node){
+    if(node.left !== null){
+      subroutine(node.left);
+    }
+
+    callback(node.value);
+
+    if(node.right !== null){
+      subroutine(node.right);
+    }
+  };
+  subroutine(this);
+};
+
 
 var validTree = new BinaryTree(5);
 validTree.addLeftChild(3);
 validTree.addRightChild(8);
 validTree.right.addLeftChild(6);
 validTree.left.addRightChild(4);
+validTree.inOrderTraversal(print);
 console.log(validTree.validateBST());
 
 var invalidTree = new BinaryTree(5);
 invalidTree.addLeftChild(3);
 invalidTree.addRightChild(8);
 invalidTree.right.addLeftChild(4);
+invalidTree.inOrderTraversal(print);
 console.log(invalidTree.validateBST());
