@@ -59,6 +59,7 @@ validTree.addLeftChild(3);
 validTree.addRightChild(8);
 validTree.right.addLeftChild(6);
 validTree.left.addRightChild(4);
+validTree.left.addLeftChild(2);
 validTree.inOrderTraversal(print);
 console.log(validTree.validateBST());
 
