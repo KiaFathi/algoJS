@@ -4,6 +4,9 @@ Write a function that does the following:
 Input: "AAABBBCCCDDDAAA"
 Output: "A3B3C3D3A3"
 
+Current problems: 
+  Doesnt handle case where new string is greater in length
+
 */
 
 function compressor(str){
