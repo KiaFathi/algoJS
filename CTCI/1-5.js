@@ -7,6 +7,7 @@ Output: "A3B3C3D3A3"
 Current problems: 
   Doesnt handle case where new string is greater in length
 
+Time Complexity: O(n), Space Complexity: O(n)
 */
 
 function compressor(str){
